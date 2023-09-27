@@ -9,3 +9,10 @@ A [ResoniteModLoader](https://github.com/resonite-modding-group/ResoniteModLoade
 ## Usage
 Click on the name of any driven field and a worker inspector on the driving source should open.
 On the worker inspector, a button is also added on the top bar to open an inspector to the slot where the component is located
+
+## Config Options
+
+| Config Option     | Default | Description |
+| ------------------ | ------- | ----------- |
+| `enabled` | `true` | Should the mod be enabled |
+| `showTextInWorld` | ShowTextInWorld | Show floating text in world |
