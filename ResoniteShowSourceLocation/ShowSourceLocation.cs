@@ -7,9 +7,10 @@ using FrooxEngine.UIX;
 namespace ShowSourceLocation;
 
 public class ResoniteShowSourceLocation : ResoniteMod {
+	internal const string VERSION_CONSTANT = "1.1.2";
 	public override string Name => "Show Source Location";
 	public override string Author => "Delta";
-	public override string Version => "1.1.1";
+	public override string Version => VERSION_CONSTANT;
 	public override string Link => "https://github.com/XDelta/ResoniteShowSourceLocation";
 
 	private enum ViewOptions {
@@ -47,7 +48,7 @@ public class ResoniteShowSourceLocation : ResoniteMod {
 			}
 			SyncElement syncElement = field.ActiveLink as SyncElement;
 			InspectorHelper.OpenInspectorForTarget(syncElement.Component, null, true);
-			__instance.LocalUser.GetPointInFrontOfUser(out float3 pos, out floatQ rot, distance: 0.35f);
+			__instance.LocalUser.GetPointInFrontOfUser(out float3 pos, out _, distance: 0.35f);
 			switch (Config.GetValue(showTextInWorld)) {
 				case ViewOptions.ShowTextInWorld:
 					NotificationMessage.SpawnTextMessage(__instance.World, pos, syncElement.Name, colorX.Magenta);
