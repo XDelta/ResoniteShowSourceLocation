@@ -1,4 +1,4 @@
-# ResoniteShowSourceLocation
+# ShowSourceLocation
 A [ResoniteModLoader](https://github.com/resonite-modding-group/ResoniteModLoader) mod for [Resonite](https://resonite.com/) that allows seeing where a field is being driven from and where a component is located.
 
 ## Installation
