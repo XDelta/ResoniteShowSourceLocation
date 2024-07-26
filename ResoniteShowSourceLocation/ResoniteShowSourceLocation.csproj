@@ -4,7 +4,7 @@
         <OutputType>Library</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
         <RootNamespace>ShowSourceLocation</RootNamespace>
-        <AssemblyTitle>ResoniteShowSourceLocation</AssemblyTitle>
+        <AssemblyTitle>ShowSourceLocation</AssemblyTitle>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <TargetFramework>net472</TargetFramework>
         <FileAlignment>512</FileAlignment>
@@ -22,7 +22,6 @@
         </Reference>
         <Reference Include="HarmonyLib">
             <HintPath>$(ResonitePath)rml_libs\0Harmony.dll</HintPath>
-            <HintPath Condition="Exists('$(ResonitePath)0Harmony.dll')">$(ResonitePath)0Harmony.dll</HintPath>
             <Private>False</Private>
         </Reference>
         <Reference Include="FrooxEngine">
