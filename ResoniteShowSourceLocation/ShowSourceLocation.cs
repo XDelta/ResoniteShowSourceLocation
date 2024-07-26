@@ -25,6 +25,13 @@ public class ResoniteShowSourceLocation : ResoniteMod {
 	[AutoRegisterConfigKey]
 	private static readonly ModConfigurationKey<ViewOptions> showTextInWorld = new ModConfigurationKey<ViewOptions>("showTextInWorld", "Show floating text in world", () => ViewOptions.ShowTextInWorld);
 
+	[AutoRegisterConfigKey]
+	private static readonly ModConfigurationKey<Chirality> workerInspectorButtonSide = new ModConfigurationKey<Chirality>("workerInspectorButtonSide", "What side to show the open slot button on worker inspectors", () => Chirality.Left);
+
+	[AutoRegisterConfigKey]
+	private static readonly ModConfigurationKey<bool> altButtonColor = new ModConfigurationKey<bool>("altButtonColor", "Alternative button color, grey instead of purple", () => true);
+
+
 	private static ModConfiguration Config;
 	public override void OnEngineInit() {
 		Config = GetConfiguration();
@@ -64,22 +71,27 @@ public class ResoniteShowSourceLocation : ResoniteMod {
 
 	[HarmonyPatch(typeof(WorkerInspector), "BuildUIForComponent")]
 	class WorkerInspector_BuildUIForComponent_Patch {
-		public static void Postfix(bool allowRemove, bool allowDuplicate, WorkerInspector __instance) {
+		public static void Postfix(WorkerInspector __instance, bool allowContainer) {
 			if (!Config.GetValue(enabled)) {
 				return;
 			}
-			if (allowRemove && !allowDuplicate) {
-				UIBuilder ui = new(__instance.Slot[0][0]);
-				RadiantUI_Constants.SetupEditorStyle(ui, false);
-				ui.Style.MinHeight = 24f;
-				ui.Style.FlexibleWidth = 0f;
-				ui.Style.MinWidth = 40f;
 
-				Button button = ui.Button("⤴", RadiantUI_Constants.BUTTON_COLOR);
-				button.Slot.OrderOffset = -1L;
-				var refEditor = button.Slot[0].AttachComponent<RefEditor>();
-				(AccessTools.Field(refEditor.GetType(), "_targetRef").GetValue(refEditor) as RelayRef<ISyncRef>).Target = (ISyncRef)AccessTools.Field(__instance.GetType(), "_targetWorker").GetValue(__instance);
-				button.Pressed.Target = (ButtonEventHandler)AccessTools.Method(refEditor.GetType(), "OpenInspectorButton").CreateDelegate(typeof(ButtonEventHandler), refEditor);
+			if (allowContainer && __instance.FindNearestParent<Slot>() != null) {
+				var buttons = __instance.Slot.GetComponentsInChildren<Button>();
+				var targetMethod = AccessTools.Method(__instance.GetType(), "OnOpenContainerPressed");
+
+				foreach (var button in buttons) {
+					var buttonRefRelay = button.Slot.GetComponent<ButtonRefRelay<Worker>>();
+					if (buttonRefRelay != null && buttonRefRelay.ButtonPressed.Target.Method == targetMethod) {
+						if (Config.GetValue(workerInspectorButtonSide) == Chirality.Left) {
+							button.Slot.OrderOffset = -1L;
+						}
+						if (Config.GetValue(altButtonColor)) {
+							button.Slot.GetComponentInChildren<Image>().Tint.Value = RadiantUI_Constants.BUTTON_COLOR;
+						}
+						break;
+					}
+				}
 			}
 		}
 	}
