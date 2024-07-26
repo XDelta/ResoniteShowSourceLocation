@@ -7,7 +7,7 @@ using FrooxEngine.UIX;
 namespace ShowSourceLocation;
 
 public class ResoniteShowSourceLocation : ResoniteMod {
-	internal const string VERSION_CONSTANT = "1.1.2";
+	internal const string VERSION_CONSTANT = "1.2.0";
 	public override string Name => "Show Source Location";
 	public override string Author => "Delta";
 	public override string Version => VERSION_CONSTANT;
