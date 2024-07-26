@@ -11,6 +11,7 @@
         <LangVersion>latest</LangVersion>
         <Deterministic>true</Deterministic>
         <CopyLocal>false</CopyLocal>
+		<CopyToMods Condition="'$(CopyToMods)'==''">false</CopyToMods>
     </PropertyGroup>
     <PropertyGroup Condition="'$(ResonitePath)'==''">
         <ResonitePath Condition="Exists('R:\SteamLibrary\steamapps\common\Resonite\')">R:\SteamLibrary\steamapps\common\Resonite\</ResonitePath>
