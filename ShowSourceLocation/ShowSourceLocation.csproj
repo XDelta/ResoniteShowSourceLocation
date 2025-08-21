@@ -1,17 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <ProjectGuid>{FFA93FA9-4040-46FF-8A1C-2A190C0CC235}</ProjectGuid>
-        <OutputType>Library</OutputType>
-        <AppDesignerFolder>Properties</AppDesignerFolder>
         <RootNamespace>ShowSourceLocation</RootNamespace>
         <AssemblyTitle>ShowSourceLocation</AssemblyTitle>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-        <TargetFramework>net472</TargetFramework>
+        <TargetFramework>net9.0</TargetFramework>
         <FileAlignment>512</FileAlignment>
         <LangVersion>latest</LangVersion>
         <Deterministic>true</Deterministic>
         <CopyLocal>false</CopyLocal>
-		<CopyToMods Condition="'$(CopyToMods)'==''">false</CopyToMods>
+		<CopyToMods Condition="'$(CopyToMods)'==''">true</CopyToMods>
     </PropertyGroup>
     <PropertyGroup Condition="'$(ResonitePath)'==''">
         <ResonitePath Condition="Exists('R:\SteamLibrary\steamapps\common\Resonite\')">R:\SteamLibrary\steamapps\common\Resonite\</ResonitePath>
@@ -26,17 +23,17 @@
             <Private>False</Private>
         </Reference>
         <Reference Include="FrooxEngine">
-            <HintPath>$(ResonitePath)Resonite_Data\Managed\FrooxEngine.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="Newtonsoft.Json">
-            <HintPath>$(ResonitePath)Resonite_Data\Managed\Newtonsoft.Json.dll</HintPath>
+            <HintPath>$(ResonitePath)FrooxEngine.dll</HintPath>
             <Private>False</Private>
         </Reference>
         <Reference Include="Elements.Core">
-            <HintPath>$(ResonitePath)Resonite_Data\Managed\Elements.Core.dll</HintPath>
+            <HintPath>$(ResonitePath)Elements.Core.dll</HintPath>
             <Private>False</Private>
         </Reference>
+		<Reference Include="Renderite.Shared">
+			<HintPath>$(ResonitePath)Renderite.Shared.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
     </ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(CopyToMods)'=='true'">

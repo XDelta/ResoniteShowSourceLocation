@@ -1,13 +1,14 @@
-﻿using HarmonyLib;
+using HarmonyLib;
 using ResoniteModLoader;
 using FrooxEngine;
 using Elements.Core;
 using FrooxEngine.UIX;
+using Renderite.Shared;
 
 namespace ShowSourceLocation;
 
-public class ResoniteShowSourceLocation : ResoniteMod {
-	internal const string VERSION_CONSTANT = "1.2.1";
+public class ShowSourceLocation : ResoniteMod {
+	internal const string VERSION_CONSTANT = "1.2.2";
 	public override string Name => "Show Source Location";
 	public override string Author => "Delta";
 	public override string Version => VERSION_CONSTANT;
@@ -20,16 +21,16 @@ public class ResoniteShowSourceLocation : ResoniteMod {
 	}
 
 	[AutoRegisterConfigKey]
-	private static readonly ModConfigurationKey<bool> enabled = new ModConfigurationKey<bool>("enabled", "Should the mod be enabled", () => true);
+	private static readonly ModConfigurationKey<bool> enabled = new("enabled", "Should the mod be enabled", () => true);
 
 	[AutoRegisterConfigKey]
-	private static readonly ModConfigurationKey<ViewOptions> showTextInWorld = new ModConfigurationKey<ViewOptions>("showTextInWorld", "Show floating text in world", () => ViewOptions.ShowTextInWorld);
+	private static readonly ModConfigurationKey<ViewOptions> showTextInWorld = new("showTextInWorld", "Show floating text in world", () => ViewOptions.ShowTextInWorld);
 
 	[AutoRegisterConfigKey]
-	private static readonly ModConfigurationKey<Chirality> workerInspectorButtonSide = new ModConfigurationKey<Chirality>("workerInspectorButtonSide", "What side to show the open slot button on worker inspectors", () => Chirality.Left);
+	private static readonly ModConfigurationKey<Chirality> workerInspectorButtonSide = new("workerInspectorButtonSide", "What side to show the open slot button on worker inspectors", () => Chirality.Left);
 
 	[AutoRegisterConfigKey]
-	private static readonly ModConfigurationKey<bool> altButtonColor = new ModConfigurationKey<bool>("altButtonColor", "Alternative button color, grey instead of purple", () => true);
+	private static readonly ModConfigurationKey<bool> altButtonColor = new("altButtonColor", "Alternative button color, grey instead of purple", () => true);
 
 
 	private static ModConfiguration Config;
@@ -43,7 +44,7 @@ public class ResoniteShowSourceLocation : ResoniteMod {
 	[HarmonyPatch(typeof(Button), "RunPressed")]
 	class Button_RunPressed_Patch {
 		public static void Postfix(Button __instance) {
-			if (!Config.GetValue(enabled)) {
+			if (!enabled.Value) {
 				return;
 			}
 			ReferenceProxySource refProxy = __instance.Slot.GetComponent<ReferenceProxySource>();
