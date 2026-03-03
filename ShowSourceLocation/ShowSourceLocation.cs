@@ -1,14 +1,18 @@
-using HarmonyLib;
-using ResoniteModLoader;
-using FrooxEngine;
 using Elements.Core;
+
+using FrooxEngine;
 using FrooxEngine.UIX;
+
+using HarmonyLib;
+
 using Renderite.Shared;
+
+using ResoniteModLoader;
 
 namespace ShowSourceLocation;
 
 public class ShowSourceLocation : ResoniteMod {
-	internal const string VERSION_CONSTANT = "1.2.2";
+	internal const string VERSION_CONSTANT = "1.2.3";
 	public override string Name => "Show Source Location";
 	public override string Author => "Delta";
 	public override string Version => VERSION_CONSTANT;
